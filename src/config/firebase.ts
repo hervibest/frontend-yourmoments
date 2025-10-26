@@ -40,6 +40,19 @@ export async function getFcmToken(): Promise<string | null> {
   }
 
   try {
+    // Register service worker first
+    if ('serviceWorker' in navigator) {
+      try {
+        const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {
+          scope: '/'
+        });
+        console.log('Service worker registered:', registration);
+      } catch (swError) {
+        console.warn('Service worker registration failed:', swError);
+        // Continue without service worker for development
+      }
+    }
+
     const token = await getToken(messaging, {
       vapidKey: VAPID_KEY,
     });

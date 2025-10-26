@@ -41,6 +41,7 @@ export function useGoogleLogin() {
         callback: customCallback || handleCredentialResponse,
         auto_select: false,
         cancel_on_tap_outside: true,
+        use_fedcm_for_prompt: false, // Disable FedCM to avoid COOP issues
       });
 
       isGoogleInitialized.value = true;
@@ -66,13 +67,15 @@ export function useGoogleLogin() {
 
       // Request notification permission and get FCM token
       const hasPermission = await requestNotificationPermission();
-      if (!hasPermission) {
-        throw new Error('Notification permission is required for login');
-      }
-
-      const deviceToken = await getFcmToken();
-      if (!deviceToken) {
-        throw new Error('Failed to get device token. Please enable notifications.');
+      let deviceToken = null;
+      
+      if (hasPermission) {
+        deviceToken = await getFcmToken();
+        if (!deviceToken) {
+          console.warn('Failed to get device token, continuing without notifications');
+        }
+      } else {
+        console.warn('Notification permission denied, continuing without notifications');
       }
 
       // Determine platform
@@ -81,7 +84,7 @@ export function useGoogleLogin() {
       // Return the data for the parent component to handle
       return {
         token: response.credential,
-        device_token: deviceToken,
+        device_token: deviceToken || 'no-token', // Provide fallback
         platform,
         user_info: userInfo
       };

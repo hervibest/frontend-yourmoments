@@ -34,16 +34,16 @@
             v-for="discount in discounts" 
             :key="discount.id"
             class="discount-card"
-            :class="{ inactive: !discount.active }"
+            :class="{ inactive: !discount.is_active }"
           >
             <div class="discount-header">
               <h3 class="discount-name">{{ discount.name }}</h3>
               <div class="discount-status">
                 <span 
                   class="status-badge"
-                  :class="{ active: discount.active, inactive: !discount.active }"
+                  :class="{ active: discount.is_active, inactive: !discount.is_active }"
                 >
-                  {{ discount.active ? 'Active' : 'Inactive' }}
+                  {{ discount.is_active ? 'Active' : 'Inactive' }}
                 </span>
               </div>
             </div>
@@ -75,10 +75,10 @@
             <div class="discount-actions">
               <button 
                 @click="toggleDiscountStatus(discount)"
-                :class="['btn', 'btn-sm', discount.active ? 'btn-warning' : 'btn-success']"
+                :class="['btn', 'btn-sm', discount.is_active ? 'btn-warning' : 'btn-success']"
               >
-                <i :class="discount.active ? 'icon-pause' : 'icon-play'"></i>
-                {{ discount.active ? 'Deactivate' : 'Activate' }}
+                <i :class="discount.is_active ? 'icon-pause' : 'icon-play'"></i>
+                {{ discount.is_active ? 'Deactivate' : 'Activate' }}
               </button>
               
               <button 
@@ -169,14 +169,14 @@ const formatDate = (dateString: string): string => {
 
 const toggleDiscountStatus = async (discount: Discount) => {
   try {
-    if (discount.active) {
+    if (discount.is_active) {
       await apiService.photo.deactivateDiscount(discount.id);
     } else {
       await apiService.photo.activateDiscount(discount.id);
     }
     
     // Update local state
-    discount.active = !discount.active;
+    discount.is_active = !discount.is_active;
   } catch (err: any) {
     console.error('Error toggling discount status:', err);
     // You might want to show a toast notification here

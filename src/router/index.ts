@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import { useUserStore } from '../stores/user';
 
 // Lazy load components for better performance
@@ -23,7 +23,7 @@ const TransactionsPage = () => import('../pages/TransactionsPage.vue');
 const TransactionDetailPage = () => import('../pages/TransactionDetailPage.vue');
 const PurchaseConfirmationPage = () => import('../pages/PurchaseConfirmationPage.vue');
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',

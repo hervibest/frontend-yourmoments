@@ -130,7 +130,7 @@
             <BaseButton
               type="submit"
               variant="primary"
-              size="large"
+              size="lg"
               :disabled="!isFormValid || isLoading"
             >
               {{ isLoading ? 'Uploading...' : `Upload ${formData.photos?.length || 0} Photos` }}
@@ -139,7 +139,7 @@
             <BaseButton
               type="button"
               variant="secondary"
-              size="large"
+              size="lg"
               @click="goBack"
             >
               Cancel
@@ -168,9 +168,9 @@ const router = useRouter();
 const userStore = useUserStore();
 const { showSuccess, showError } = useNotification();
 
-// Form data
-const formData = ref<UploadBulkPhotoRequest>({
-  photos: [],
+// Form data - using string for input fields, converting to numbers for API
+const formData = ref({
+  photos: [] as File[],
   price: '',
   latitude: '',
   longitude: '',

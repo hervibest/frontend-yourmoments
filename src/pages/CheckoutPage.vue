@@ -483,7 +483,13 @@ const processPayment = async () => {
         creator_id: item.creator_id,
         title: item.title,
         price: item.price,
-        discount: item.discount,
+        discount: item.discount ? {
+          id: item.discount.id || '',
+          amount: item.discount.value,
+          min_quantity: item.discount.min_quantity,
+          value: item.discount.value,
+          type: item.discount.discount_type
+        } : undefined,
         final_price: item.final_price
       })),
       total_price: checkoutData.value.total_price,

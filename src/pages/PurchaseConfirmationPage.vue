@@ -19,7 +19,7 @@
         <p>{{ error }}</p>
         <BaseButton
           variant="primary"
-          size="medium"
+          size="md"
           @click="retryPurchase"
         >
           Coba Lagi
@@ -27,14 +27,14 @@
       </div>
 
       <!-- Success State -->
-      <div v-else-if="purchaseSuccess" class="success-state">
+      <div v-else-if="isPurchaseSuccess" class="success-state">
         <div class="success-icon">✅</div>
         <h2>Pembelian Berhasil!</h2>
         <p>Transaksi Anda telah berhasil diproses. Anda akan diarahkan ke halaman transaksi.</p>
         <div class="success-actions">
           <BaseButton
             variant="primary"
-            size="large"
+            size="lg"
             @click="goToTransactions"
           >
             Lihat Transaksi
@@ -42,7 +42,7 @@
           
           <BaseButton
             variant="secondary"
-            size="large"
+            size="lg"
             @click="goToExplore"
           >
             Jelajahi Foto Lain
@@ -185,7 +185,7 @@
               <BaseButton
                 type="submit"
                 variant="primary"
-                size="large"
+                size="lg"
                 :disabled="!canProceed || isProcessing"
               >
                 {{ isProcessing ? 'Memproses...' : `Bayar ${formatCurrency(purchaseData.total_price)}` }}
@@ -194,7 +194,7 @@
               <BaseButton
                 type="button"
                 variant="secondary"
-                size="large"
+                size="lg"
                 @click="goBack"
               >
                 Batal

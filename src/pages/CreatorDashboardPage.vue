@@ -21,7 +21,7 @@
               <p>Upload a single high-quality photo</p>
               <BaseButton
                 variant="primary"
-                size="large"
+                size="lg"
                 @click="goToSingleUpload"
               >
                 Upload Single Photo
@@ -38,7 +38,7 @@
               <p>Upload multiple photos at once</p>
               <BaseButton
                 variant="primary"
-                size="large"
+                size="lg"
                 @click="goToBulkUpload"
               >
                 Upload Multiple Photos
@@ -55,7 +55,7 @@
               <p>Upload your facecam for better matching</p>
               <BaseButton
                 variant="secondary"
-                size="large"
+                size="lg"
                 @click="goToFacecamUpload"
               >
                 Upload Facecam
@@ -146,7 +146,7 @@
             <h2>Discount Management</h2>
             <BaseButton
               variant="primary"
-              size="medium"
+              size="md"
               @click="showCreateDiscountModal = true"
             >
               Create New Discount
@@ -166,7 +166,7 @@
             <p>{{ discountsError }}</p>
             <BaseButton
               variant="secondary"
-              size="medium"
+              size="md"
               @click="loadDiscounts"
             >
               Try Again
@@ -213,7 +213,7 @@
               <div class="discount-actions">
                 <BaseButton
                   variant="secondary"
-                  size="small"
+                  size="sm"
                   @click="toggleDiscountStatus(discount)"
                 >
                   {{ discount.is_active ? 'Deactivate' : 'Activate' }}
@@ -221,7 +221,7 @@
                 
                 <BaseButton
                   variant="secondary"
-                  size="small"
+                  size="sm"
                   @click="editDiscount(discount)"
                 >
                   Edit
@@ -237,7 +237,7 @@
             <p>Create your first discount to attract more customers to your photos.</p>
             <BaseButton
               variant="primary"
-              size="medium"
+              size="md"
               @click="showCreateDiscountModal = true"
             >
               Create First Discount
@@ -251,7 +251,7 @@
           <div class="action-buttons">
             <BaseButton
               variant="secondary"
-              size="large"
+              size="lg"
               @click="goToProfile"
             >
               Edit Profile
@@ -259,7 +259,7 @@
             
             <BaseButton
               variant="secondary"
-              size="large"
+              size="lg"
               @click="goToReviews"
             >
               View Reviews
@@ -267,7 +267,7 @@
             
             <BaseButton
               variant="secondary"
-              size="large"
+              size="lg"
               @click="goToWallet"
             >
               Manage Wallet
@@ -275,7 +275,7 @@
             
             <BaseButton
               variant="secondary"
-              size="large"
+              size="lg"
               @click="goToExplore"
             >
               Browse Photos

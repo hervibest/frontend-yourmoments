@@ -74,7 +74,7 @@
             <BaseButton
               type="submit"
               variant="primary"
-              size="large"
+              size="lg"
               :disabled="!isFormValid || isLoading"
             >
               {{ isLoading ? 'Uploading...' : 'Upload Facecam' }}
@@ -83,7 +83,7 @@
             <BaseButton
               type="button"
               variant="secondary"
-              size="large"
+              size="lg"
               @click="goBack"
             >
               Cancel

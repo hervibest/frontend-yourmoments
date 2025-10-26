@@ -54,7 +54,7 @@
           <div v-if="showUserMenu" class="user-dropdown">
             <div class="user-info">
               <p class="user-name">{{ userStore.getUser?.nickname || 'User' }}</p>
-              <p class="user-email">{{ userStore.getUser?.email || '' }}</p>
+              <p class="user-email">{{ userStore.getCurrentUser?.email || '' }}</p>
             </div>
             <div class="dropdown-divider"></div>
             <router-link to="/profile" class="dropdown-item">

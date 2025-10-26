@@ -230,7 +230,7 @@ const initializeForm = () => {
       min_quantity: props.discount.min_quantity,
       discount_type: props.discount.discount_type,
       value: props.discount.value,
-      is_active: props.discount.active
+      is_active: props.discount.is_active
     };
   }
 };

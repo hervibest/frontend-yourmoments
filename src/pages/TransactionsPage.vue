@@ -19,8 +19,8 @@
         <p>{{ error }}</p>
         <BaseButton
           variant="primary"
-          size="medium"
-          @click="loadTransactions"
+          size="md"
+          @click="() => loadTransactions()"
         >
           Coba Lagi
         </BaseButton>
@@ -65,7 +65,7 @@
             <div class="transaction-actions">
               <BaseButton
                 variant="secondary"
-                size="small"
+                size="sm"
                 @click.stop="viewTransactionDetail(transaction.id)"
               >
                 Lihat Detail
@@ -78,9 +78,9 @@
         <div v-if="pagination && pagination.total_page > 1" class="pagination">
           <BaseButton
             variant="secondary"
-            size="medium"
+            size="md"
             :disabled="!pagination.has_previous"
-            @click="loadTransactions(pagination.page - 1)"
+            @click="() => loadTransactions(pagination.page - 1)"
           >
             Sebelumnya
           </BaseButton>
@@ -91,9 +91,9 @@
           
           <BaseButton
             variant="secondary"
-            size="medium"
+            size="md"
             :disabled="!pagination.has_next"
-            @click="loadTransactions(pagination.page + 1)"
+            @click="() => loadTransactions(pagination.page + 1)"
           >
             Selanjutnya
           </BaseButton>
@@ -107,7 +107,7 @@
         <p>Anda belum melakukan pembelian foto apapun. Mulai jelajahi foto-foto menarik!</p>
         <BaseButton
           variant="primary"
-          size="large"
+          size="lg"
           @click="goToExplore"
         >
           Jelajahi Foto

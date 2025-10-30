@@ -27,18 +27,7 @@
             @change="handleFacecamChange"
           />
 
-          <!-- User ID Input -->
-          <BaseInput
-            v-model="formData.userId"
-            name="userId"
-            type="text"
-            label="User ID"
-            placeholder="Enter your user ID"
-            :required="true"
-            :error="errors.userId"
-            helpText="Your unique user identifier"
-            @blur="validateUserId"
-          />
+          <!-- User ID is auto-filled from authenticated user; no client-side input -->
 
           <!-- Facecam Preview -->
           <div v-if="formData.facecam" class="facecam-preview">
@@ -103,7 +92,6 @@ import { apiService } from '../services/api';
 import { ApiException } from '../services/api';
 import { useNotification } from '../composables/useNotification';
 import BaseForm from '../components/BaseForm.vue';
-import BaseInput from '../components/BaseInput.vue';
 import BaseButton from '../components/BaseButton.vue';
 import BaseFileUpload from '../components/BaseFileUpload.vue';
 import type { UploadFacecamRequest } from '../types/apiContracts';
@@ -125,13 +113,11 @@ const error = ref<string | null>(null);
 // Form validation
 const errors = ref<Record<string, string | null>>({
   facecam: null,
-  userId: null,
 });
 
 // Computed
 const isFormValid = computed(() => {
   return formData.value.facecam &&
-         formData.value.userId &&
          Object.values(errors.value).every(error => !error);
 });
 
@@ -155,19 +141,7 @@ const validateFacecam = () => {
   errors.value.facecam = null;
 };
 
-const validateUserId = () => {
-  if (!formData.value.userId.trim()) {
-    errors.value.userId = 'User ID is required';
-    return;
-  }
-  
-  if (formData.value.userId.length < 3) {
-    errors.value.userId = 'User ID must be at least 3 characters';
-    return;
-  }
-  
-  errors.value.userId = null;
-};
+// userId is auto-set from authenticated user; no client-side input validation
 
 const getFacecamPreview = (file: File): string => {
   return URL.createObjectURL(file);
@@ -184,7 +158,6 @@ const formatFileSize = (bytes: number): string => {
 const handleSubmit = async () => {
   // Validate all fields
   validateFacecam();
-  validateUserId();
   
   if (!isFormValid.value) {
     return;
@@ -193,6 +166,22 @@ const handleSubmit = async () => {
   try {
     isLoading.value = true;
     error.value = null;
+    
+    // Ensure userId is populated from authenticated user
+    if (!formData.value.userId) {
+      if (userStore.currentUser?.id) {
+        formData.value.userId = userStore.currentUser.id;
+      } else {
+        await userStore.fetchCurrentUser().catch(() => {});
+        if (userStore.currentUser?.id) {
+          formData.value.userId = userStore.currentUser.id;
+        }
+      }
+    }
+
+    if (!formData.value.userId) {
+      throw new Error('User tidak terautentikasi. Silakan login ulang.');
+    }
     
     const uploadData: UploadFacecamRequest = {
       facecam: formData.value.facecam!,
@@ -244,9 +233,25 @@ onMounted(() => {
     router.push('/login');
   }
   
-  // Pre-fill user ID if available
-  if (userStore.user?.id) {
-    formData.value.userId = userStore.user.id;
+  // Pre-fill user ID automatically from current user
+  const setUserIdFromStore = () => {
+    if (userStore.currentUser?.id) {
+      formData.value.userId = userStore.currentUser.id;
+    }
+  };
+
+  // Try immediate population
+  setUserIdFromStore();
+
+  // If not yet available, fetch current user then populate
+  if (!formData.value.userId) {
+    userStore.fetchCurrentUser()
+      .then(() => {
+        setUserIdFromStore();
+      })
+      .catch(() => {
+        // ignore; user can still input manually if needed
+      });
   }
 });
 </script>

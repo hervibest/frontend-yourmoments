@@ -4,7 +4,7 @@
       <div class="nav-brand">
         <router-link to="/explore" class="brand-link">
           <span class="brand-icon">📸</span>
-          <span class="brand-text">Fotoyu</span>
+          <span class="brand-text">Yourmoments</span>
         </router-link>
       </div>
       

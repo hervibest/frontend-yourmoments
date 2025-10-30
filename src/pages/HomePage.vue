@@ -15,42 +15,42 @@
       <div class="hero-content">
         <div class="hero-badge">
           <span class="badge-icon">🤖</span>
-          <span>Powered by AI</span>
+          <span>AI Similarity Matching</span>
         </div>
         
         <h1 class="hero-title">
-          Transform Your Photos with
-          <span class="gradient-text">AI Magic</span>
+          Abadikan Momen Terbaik Anda dengan
+          <span class="gradient-text">Yourmoments</span>
         </h1>
         
         <p class="hero-subtitle">
-          Create stunning, professional-quality photo content with the power of artificial intelligence. 
-          From simple edits to complete transformations - your creativity has no limits.
+          Temukan dan cocokkan foto terbaik dari para fotografer dengan profil Anda. 
+          Teknologi AI kami melakukan similarity matching untuk menghadirkan momen berlari, rekreasi outdoor, hingga foto di pantai yang paling sesuai dengan Anda.
         </p>
         
         <div class="hero-actions">
           <router-link to="/register" class="btn btn-primary">
             <span class="btn-icon">🚀</span>
-            Start Creating
+            Mulai Gratis
           </router-link>
           <router-link to="/explore" class="btn btn-secondary">
             <span class="btn-icon">👀</span>
-            Explore Gallery
+            Jelajahi Galeri
           </router-link>
         </div>
         
         <div class="hero-stats">
           <div class="stat">
             <div class="stat-number">10K+</div>
-            <div class="stat-label">Photos Enhanced</div>
+            <div class="stat-label">Momen Tersimpan</div>
           </div>
           <div class="stat">
             <div class="stat-number">5K+</div>
-            <div class="stat-label">Happy Users</div>
+            <div class="stat-label">Pengguna Puas</div>
           </div>
           <div class="stat">
             <div class="stat-number">99%</div>
-            <div class="stat-label">Satisfaction</div>
+            <div class="stat-label">Akurasi Kecocokan</div>
           </div>
         </div>
       </div>
@@ -60,9 +60,9 @@
     <div class="features-section">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Why Choose Fotoyu?</h2>
+          <h2 class="section-title">Kenapa Yourmoments?</h2>
           <p class="section-subtitle">
-            Experience the future of photo editing with our cutting-edge AI technology
+            Rasakan pengalaman menemukan foto momen yang paling cocok dengan Anda menggunakan AI
           </p>
         </div>
         
@@ -71,48 +71,48 @@
             <div class="feature-icon">
               <div class="icon-wrapper">🤖</div>
             </div>
-            <h3>AI-Powered Editing</h3>
-            <p>Let artificial intelligence enhance your photos automatically with professional-grade results in seconds</p>
+            <h3>Akurasi Tinggi</h3>
+            <p>AI similarity matching mencocokkan foto fotografer dengan profil Anda secara presisi</p>
           </div>
           
           <div class="feature-card">
             <div class="feature-icon">
               <div class="icon-wrapper">⚡</div>
             </div>
-            <h3>Lightning Fast</h3>
-            <p>Process and enhance your photos in real-time with our optimized AI algorithms</p>
+            <h3>Mudah & Cepat</h3>
+            <p>Proses instan. Temukan momen lari, outdoor, atau pantai hanya dengan beberapa klik</p>
           </div>
           
           <div class="feature-card">
             <div class="feature-icon">
               <div class="icon-wrapper">🎨</div>
             </div>
-            <h3>Creative Styles</h3>
-            <p>Choose from hundreds of artistic styles and filters to transform your photos into masterpieces</p>
+            <h3>Kualitas Gambar Tinggi</h3>
+            <p>Resolusi foto tajam siap pakai untuk simpan, bagikan, atau dicetak</p>
           </div>
           
           <div class="feature-card">
             <div class="feature-icon">
               <div class="icon-wrapper">📱</div>
             </div>
-            <h3>Mobile Ready</h3>
-            <p>Access your photos anywhere with our responsive design and mobile-optimized interface</p>
+            <h3>Nyaman di Semua Perangkat</h3>
+            <p>Antarmuka responsif dan ringan untuk pengalaman terbaik di ponsel maupun desktop</p>
           </div>
           
           <div class="feature-card">
             <div class="feature-icon">
               <div class="icon-wrapper">🔒</div>
             </div>
-            <h3>Secure & Private</h3>
-            <p>Your photos are encrypted and secure. We never share your content without permission</p>
+            <h3>Jaminan Kerahasiaan</h3>
+            <p>Foto Anda terenkripsi. Data tidak dibagikan tanpa persetujuan</p>
           </div>
           
           <div class="feature-card">
             <div class="feature-icon">
-              <div class="icon-wrapper">💎</div>
+              <div class="icon-wrapper">💳</div>
             </div>
-            <h3>Premium Quality</h3>
-            <p>Get professional results that rival expensive photo editing software</p>
+            <h3>Pembayaran Aman</h3>
+            <p>Dukungan pembayaran yang andal untuk transaksi yang tenang</p>
           </div>
         </div>
       </div>
@@ -122,9 +122,9 @@
     <div class="showcase-section">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">See the Magic in Action</h2>
+          <h2 class="section-title">Contoh Hasil yang Relevan</h2>
           <p class="section-subtitle">
-            Watch how our AI transforms ordinary photos into extraordinary content
+            Dari aktivitas berlari, rekreasi outdoor, hingga momen di pantai
           </p>
         </div>
         
@@ -132,49 +132,49 @@
           <div class="showcase-item">
             <div class="photo-container">
               <div class="photo-placeholder original">
-                <span class="photo-label">Original</span>
+                <span class="photo-label">Kandidat</span>
                 <div class="photo-icon">📷</div>
               </div>
               <div class="arrow">→</div>
               <div class="photo-placeholder enhanced">
-                <span class="photo-label">AI Enhanced</span>
+                <span class="photo-label">Cocok untuk Anda</span>
                 <div class="photo-icon">✨</div>
               </div>
             </div>
-            <h4>Portrait Enhancement</h4>
-            <p>Perfect skin, lighting, and composition automatically</p>
+            <h4>Momen Berlari</h4>
+            <p>AI memilih angle dan gaya yang paling mendekati profil Anda</p>
           </div>
           
           <div class="showcase-item">
             <div class="photo-container">
               <div class="photo-placeholder original">
-                <span class="photo-label">Original</span>
+                <span class="photo-label">Kandidat</span>
                 <div class="photo-icon">🏞️</div>
               </div>
               <div class="arrow">→</div>
               <div class="photo-placeholder enhanced">
-                <span class="photo-label">AI Styled</span>
+                <span class="photo-label">Cocok untuk Anda</span>
                 <div class="photo-icon">🎨</div>
               </div>
             </div>
-            <h4>Artistic Styling</h4>
-            <p>Transform landscapes into artistic masterpieces</p>
+            <h4>Rekreasi Outdoor</h4>
+            <p>Temukan tone dan suasana yang sesuai preferensi Anda</p>
           </div>
           
           <div class="showcase-item">
             <div class="photo-container">
               <div class="photo-placeholder original">
-                <span class="photo-label">Original</span>
+                <span class="photo-label">Kandidat</span>
                 <div class="photo-icon">🍽️</div>
               </div>
               <div class="arrow">→</div>
               <div class="photo-placeholder enhanced">
-                <span class="photo-label">AI Enhanced</span>
+                <span class="photo-label">Cocok untuk Anda</span>
                 <div class="photo-icon">🌟</div>
               </div>
             </div>
-            <h4>Food Photography</h4>
-            <p>Make your food photos look irresistible</p>
+            <h4>Momen di Pantai</h4>
+            <p>Highlight warna langit dan laut yang paling pas dengan profil Anda</p>
           </div>
         </div>
       </div>
@@ -184,18 +184,18 @@
     <div class="cta-section">
       <div class="container">
         <div class="cta-content">
-          <h2 class="cta-title">Ready to Transform Your Photos?</h2>
+          <h2 class="cta-title">Siap Temukan Momen Terbaik Anda?</h2>
           <p class="cta-subtitle">
-            Join thousands of users who are already creating amazing content with Fotoyu
+            Bergabunglah dengan ribuan pengguna yang sudah menemukan momen paling relevan dengan Yourmoments
           </p>
           <div class="cta-actions">
             <router-link to="/register" class="btn btn-primary btn-large">
               <span class="btn-icon">🚀</span>
-              Get Started Free
+              Mulai Gratis
             </router-link>
             <router-link to="/explore" class="btn btn-outline">
               <span class="btn-icon">👀</span>
-              View Gallery
+              Lihat Galeri
             </router-link>
           </div>
         </div>

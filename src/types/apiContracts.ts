@@ -61,6 +61,7 @@ export interface UserData {
   email_verified_at?: string;
   phone_number?: string;
   google_id?: string;
+  has_facecam?: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -156,6 +157,7 @@ export interface CurrentUserData {
   id: string;
   username: string;
   email: string;
+  has_facecam?: boolean;
   created_at: string;
   updated_at: string;
 }

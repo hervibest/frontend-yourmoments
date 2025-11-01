@@ -190,6 +190,15 @@ const handleSubmit = async () => {
     
     await apiService.upload.uploadFacecam(uploadData);
     
+    // Refresh currentUser to update has_facecam status
+    try {
+      await userStore.fetchCurrentUser();
+      console.log('Current user refreshed after facecam upload');
+    } catch (error) {
+      console.warn('Failed to refresh current user after facecam upload:', error);
+      // Continue even if refresh fails
+    }
+    
     // Show success notification
     showSuccess(
       'Upload Berhasil!',

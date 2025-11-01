@@ -157,9 +157,19 @@ const handleLogin = async () => {
     
     // Verify authentication state before redirect
     if (userStore.isLoggedIn) {
-      console.log('User is authenticated, proceeding with redirect to /profile');
-      // Use replace instead of push to avoid back button issues
-      await router.replace('/profile');
+      console.log('User is authenticated, checking has_facecam');
+      
+      // Check if user has facecam, redirect to upload if not
+      const hasFacecam = userStore.currentUser?.has_facecam;
+      console.log('User has_facecam:', hasFacecam);
+      
+      if (hasFacecam === false) {
+        console.log('User does not have facecam, redirecting to /upload/facecam');
+        await router.replace('/upload/facecam');
+      } else {
+        console.log('User has facecam or status unknown, proceeding with redirect to /profile');
+        await router.replace('/profile');
+      }
       console.log('Router replace called');
     } else {
       console.error('User authentication state not updated properly');
@@ -221,8 +231,19 @@ const handleGoogleLogin = async (googleData: any) => {
     
     // Verify authentication state before redirect
     if (userStore.isLoggedIn) {
-      console.log('User is authenticated via Google, proceeding with redirect to /profile');
-      await router.replace('/profile');
+      console.log('User is authenticated via Google, checking has_facecam');
+      
+      // Check if user has facecam, redirect to upload if not
+      const hasFacecam = userStore.currentUser?.has_facecam;
+      console.log('User has_facecam:', hasFacecam);
+      
+      if (hasFacecam === false) {
+        console.log('User does not have facecam, redirecting to /upload/facecam');
+        await router.replace('/upload/facecam');
+      } else {
+        console.log('User has facecam or status unknown, proceeding with redirect to /profile');
+        await router.replace('/profile');
+      }
     } else {
       console.error('Google authentication state not updated properly');
     }

@@ -190,6 +190,28 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
   
+  // Check has_facecam for authenticated users on protected routes (except upload/facecam itself)
+  if (isAuthenticated && requiresAuth && to.path !== '/upload/facecam') {
+    // Ensure currentUser is loaded
+    if (!userStore.currentUser) {
+      try {
+        await userStore.fetchCurrentUser();
+      } catch (error) {
+        console.warn('Router: Failed to fetch current user:', error);
+      }
+    }
+    
+    const hasFacecam = userStore.currentUser?.has_facecam;
+    console.log('Router: Checking has_facecam', { hasFacecam, path: to.path });
+    
+    // Redirect to facecam upload if user doesn't have facecam
+    if (hasFacecam === false) {
+      console.log('Router: User does not have facecam, redirecting to /upload/facecam');
+      next('/upload/facecam');
+      return;
+    }
+  }
+  
   console.log('Router: Navigation allowed');
   next();
 });

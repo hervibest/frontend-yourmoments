@@ -71,14 +71,30 @@ export const useUserStore = defineStore('user', {
           localStorage.setItem('refresh_token', token.refresh_token);
           console.log('Store: Tokens stored in localStorage');
           
-          // Fetch current user data (don't fail login if this fails)
-          try {
-            console.log('Store: Fetching current user data');
-            await this.fetchCurrentUser();
-            console.log('Store: Current user data fetched successfully');
-          } catch (userError) {
-            console.warn('Store: Failed to fetch current user data:', userError);
-            // Don't throw error - login is still successful
+          // Set currentUser from response if available (includes has_facecam)
+          const userData = response.data?.user;
+          if (userData) {
+            console.log('Store: Setting currentUser from login response');
+            this.currentUser = {
+              id: userData.id,
+              username: userData.username,
+              email: userData.email,
+              has_facecam: userData.has_facecam,
+              created_at: userData.created_at,
+              updated_at: userData.updated_at,
+            };
+          }
+          
+          // Fetch current user data if not available from response (don't fail login if this fails)
+          if (!this.currentUser) {
+            try {
+              console.log('Store: Fetching current user data');
+              await this.fetchCurrentUser();
+              console.log('Store: Current user data fetched successfully');
+            } catch (userError) {
+              console.warn('Store: Failed to fetch current user data:', userError);
+              // Don't throw error - login is still successful
+            }
           }
           
           console.log('Store: Login process completed, final state:', {
@@ -134,14 +150,30 @@ export const useUserStore = defineStore('user', {
           localStorage.setItem('refresh_token', token.refresh_token);
           console.log('Store: Tokens stored in localStorage');
           
-          // Fetch current user data (don't fail login if this fails)
-          try {
-            console.log('Store: Fetching current user data');
-            await this.fetchCurrentUser();
-            console.log('Store: Current user data fetched successfully');
-          } catch (userError) {
-            console.warn('Store: Failed to fetch current user data:', userError);
-            // Don't throw error - login is still successful
+          // Set currentUser from response if available (includes has_facecam)
+          const userData = response.data?.user;
+          if (userData) {
+            console.log('Store: Setting currentUser from Google login response');
+            this.currentUser = {
+              id: userData.id,
+              username: userData.username,
+              email: userData.email,
+              has_facecam: userData.has_facecam,
+              created_at: userData.created_at,
+              updated_at: userData.updated_at,
+            };
+          }
+          
+          // Fetch current user data if not available from response (don't fail login if this fails)
+          if (!this.currentUser) {
+            try {
+              console.log('Store: Fetching current user data');
+              await this.fetchCurrentUser();
+              console.log('Store: Current user data fetched successfully');
+            } catch (userError) {
+              console.warn('Store: Failed to fetch current user data:', userError);
+              // Don't throw error - login is still successful
+            }
           }
 
           // Create device token for push notifications (don't fail login if this fails)

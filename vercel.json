@@ -4,16 +4,16 @@
       "source": "/firebase-messaging-sw.js",
       "headers": [
         {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        },
+        {
           "key": "Service-Worker-Allowed",
           "value": "/"
         },
         {
           "key": "Cache-Control",
-          "value": "no-cache"
-        },
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
+          "value": "no-cache, no-store, must-revalidate"
         }
       ]
     },
@@ -31,9 +31,19 @@
       ]
     }
   ],
+  "routes": [
+    {
+      "src": "/firebase-messaging-sw.js",
+      "dest": "/firebase-messaging-sw.js",
+      "headers": {
+        "Content-Type": "application/javascript; charset=utf-8",
+        "Cache-Control": "no-cache"
+      }
+    }
+  ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!firebase-messaging-sw\\.js).*)",
       "destination": "/index.html"
     }
   ]

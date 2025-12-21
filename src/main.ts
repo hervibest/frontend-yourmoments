@@ -14,8 +14,10 @@ app.use(router);
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
-      // Register service worker
-      const registration = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+      // Register service worker with absolute path
+      const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {
+        scope: '/'
+      });
       console.log('Service Worker registered successfully:', registration);
       
       // Request notification permission

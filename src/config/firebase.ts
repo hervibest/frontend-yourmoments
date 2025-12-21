@@ -43,7 +43,7 @@ export async function getFcmToken(): Promise<string | null> {
     // Register service worker first
     if ('serviceWorker' in navigator) {
       try {
-        const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {
+        const registration = await navigator.serviceWorker.register('./firebase-messaging-sw.js', {
           scope: '/'
         });
         console.log('Service worker registered:', registration);

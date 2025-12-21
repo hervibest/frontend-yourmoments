@@ -39,12 +39,10 @@
         "Content-Type": "application/javascript; charset=utf-8",
         "Cache-Control": "no-cache"
       }
-    }
-  ],
-  "rewrites": [
+    },
     {
-      "source": "/((?!firebase-messaging-sw\\.js).*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }

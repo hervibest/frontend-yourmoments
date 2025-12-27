@@ -31,7 +31,7 @@
             <span class="detail-label">Order ID:</span>
             <span class="detail-value">{{ transactionData.orderId }}</span>
           </div>
-          <div class="detail-item" v-if="transactionData.transactionId">
+          <div class="detail-item" v-if="transactionData.transactionId && transactionData.transactionId !== transactionData.orderId">
             <span class="detail-label">Transaction ID:</span>
             <span class="detail-value">{{ transactionData.transactionId }}</span>
           </div>
@@ -43,8 +43,12 @@
             <span class="detail-label">Metode Pembayaran:</span>
             <span class="detail-value">{{ transactionData.paymentMethod }}</span>
           </div>
+          <div class="detail-item" v-if="transactionData.statusCode">
+            <span class="detail-label">Status Code:</span>
+            <span class="detail-value">{{ transactionData.statusCode }}</span>
+          </div>
           <div class="detail-item" v-if="transactionData.status">
-            <span class="detail-label">Status:</span>
+            <span class="detail-label">Status Transaksi:</span>
             <span class="detail-value status-badge" :class="getStatusClass(transactionData.status)">
               {{ getStatusText(transactionData.status) }}
             </span>
@@ -82,6 +86,7 @@ interface TransactionData {
   totalAmount?: number;
   paymentMethod?: string;
   status?: string;
+  statusCode?: string;
 }
 
 const transactionData = ref<TransactionData | null>(null);
@@ -134,7 +139,7 @@ const getStatusText = (status: string): string => {
   }
 };
 
-const loadTransactionDetails = async (transactionId: string) => {
+const loadTransactionDetails = async (transactionId: string, statusCode?: string) => {
   try {
     loading.value = true;
     error.value = null;
@@ -143,12 +148,17 @@ const loadTransactionDetails = async (transactionId: string) => {
     const response = await apiService.transaction.getTransactionDetail(transactionId);
     
     if (response.success && response.data) {
+      // Get status_code from URL params if available
+      const urlParams = new URLSearchParams(window.location.search);
+      const statusCodeFromUrl = urlParams.get('status_code');
+      
       transactionData.value = {
         orderId: response.data.transaction_id,
         transactionId: response.data.transaction_id,
         totalAmount: response.data.amount,
         paymentMethod: 'Midtrans Payment',
-        status: response.data.status
+        status: response.data.status,
+        statusCode: statusCodeFromUrl || statusCode || undefined
       };
     } else {
       throw new Error('Gagal memuat detail transaksi');
@@ -173,46 +183,56 @@ const processMidtransReturn = async () => {
     loading.value = true;
     
     // Get URL parameters from Midtrans redirect
+    // Format: ?order_id=xxx&status_code=200&transaction_status=settlement
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get('order_id');
     const transactionStatus = urlParams.get('transaction_status');
+    const statusCode = urlParams.get('status_code');
     const transactionId = urlParams.get('transaction_id');
     
     console.log('Midtrans return parameters:', {
       orderId,
       transactionStatus,
-      transactionId
+      statusCode,
+      transactionId,
+      allParams: Object.fromEntries(urlParams.entries())
     });
     
     // Handle Midtrans return using utility
+    // transaction_status can be: settlement, pending, cancel, deny, expire
     const returnData = handleMidtransReturn(transactionStatus || undefined);
     
-    // Store transaction ID if available
+    // Store transaction ID if available (use order_id as transaction_id)
     if (orderId || transactionId) {
       const idToStore = transactionId || orderId;
       if (idToStore) {
         localStorage.setItem('transaction_id', idToStore);
+        console.log('Stored transaction ID:', idToStore);
       }
     }
     
     // If status is not success, redirect to appropriate page
     if (!returnData.success) {
+      console.log('Payment not successful, redirecting to:', returnData.redirectUrl);
       router.push(returnData.redirectUrl);
       return;
     }
     
     // Try to load transaction details if we have an ID
+    // Priority: transaction_id > order_id > localStorage
     if (orderId || transactionId) {
       const idToLoad = transactionId || orderId;
       if (idToLoad) {
-        await loadTransactionDetails(idToLoad);
+        console.log('Loading transaction details for ID:', idToLoad);
+        await loadTransactionDetails(idToLoad, statusCode || undefined);
       } else {
-        // If no transaction ID, just show success message
+        // If no transaction ID, just show success message with URL params
         transactionData.value = {
           orderId: orderId || undefined,
           transactionId: transactionId || undefined,
           paymentMethod: 'Midtrans Payment',
-          status: transactionStatus || 'success'
+          status: transactionStatus || 'settlement',
+          statusCode: statusCode || undefined
         };
         loading.value = false;
       }
@@ -220,12 +240,15 @@ const processMidtransReturn = async () => {
       // If no transaction ID in URL, try to get from localStorage
       const storedTransactionId = localStorage.getItem('transaction_id');
       if (storedTransactionId) {
-        await loadTransactionDetails(storedTransactionId);
+        console.log('Using stored transaction ID:', storedTransactionId);
+        await loadTransactionDetails(storedTransactionId, statusCode || undefined);
       } else {
-        // Show generic success message
+        // Show generic success message with status from URL
+        console.log('No transaction ID found, showing generic success');
         transactionData.value = {
           paymentMethod: 'Midtrans Payment',
-          status: transactionStatus || 'success'
+          status: transactionStatus || 'settlement',
+          statusCode: statusCode || undefined
         };
         loading.value = false;
       }

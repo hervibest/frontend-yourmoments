@@ -267,8 +267,8 @@ export const emailVerificationApi = {
   resendEmailVerification: (data: ResendEmailVerificationRequest): Promise<ResendEmailVerificationResponse> =>
     apiCall(() => userApi.post('/api/user/request-resend-email', data)),
 
-  verifyEmail: (token: string): Promise<VerifyEmailResponse> =>
-    apiCall(() => userApi.post(`/api/user/verify/${token}`)),
+  verifyEmail: (token: string, data: VerifyEmailRequest): Promise<VerifyEmailResponse> =>
+    apiCall(() => userApi.post(`/api/user/verify/${token}`, data)),
 };
 
 // User Profile API

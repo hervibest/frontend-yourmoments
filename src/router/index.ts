@@ -22,6 +22,7 @@ const CreatorWalletPage = () => import('../pages/CreatorWalletPage.vue');
 const TransactionsPage = () => import('../pages/TransactionsPage.vue');
 const TransactionDetailPage = () => import('../pages/TransactionDetailPage.vue');
 const PurchaseConfirmationPage = () => import('../pages/PurchaseConfirmationPage.vue');
+const VerifyUserPage = () => import('../pages/VerifyUserPage.vue');
 
 const routes: RouteRecordRaw[] = [
   {
@@ -53,6 +54,12 @@ const routes: RouteRecordRaw[] = [
     name: 'ResetPassword',
     component: ResetPasswordPage,
     meta: { requiresAuth: false, guestOnly: true }
+  },
+  {
+    path: '/verify-user/:token',
+    name: 'VerifyUser',
+    component: VerifyUserPage,
+    meta: { requiresAuth: false }
   },
   {
     path: '/explore',

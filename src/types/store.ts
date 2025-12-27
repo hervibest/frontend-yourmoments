@@ -41,7 +41,7 @@ export interface UserActions {
 
   // Email Verification
   resendEmailVerification: (email: string) => Promise<void>;
-  verifyEmail: (token: string) => Promise<void>;
+  verifyEmail: (token: string, email: string) => Promise<void>;
 
   // Profile Management
   fetchProfile: () => Promise<void>;

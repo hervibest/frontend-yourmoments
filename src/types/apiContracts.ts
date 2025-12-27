@@ -118,7 +118,7 @@ export interface ResendEmailVerificationRequest {
 }
 
 export interface VerifyEmailRequest {
-  token: string;
+  email: string;
 }
 
 export interface ResendEmailVerificationResponse extends ApiResponse {}

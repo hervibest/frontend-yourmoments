@@ -342,12 +342,12 @@ export const useUserStore = defineStore('user', {
       }
     },
 
-    async verifyEmail(token: string): Promise<void> {
+    async verifyEmail(token: string, email: string): Promise<void> {
       this.setLoading(true);
       this.clearError();
       
       try {
-        await apiService.emailVerification.verifyEmail(token);
+        await apiService.emailVerification.verifyEmail(token, { email });
       } catch (error) {
         this.handleError(error);
         throw error;

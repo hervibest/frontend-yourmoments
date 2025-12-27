@@ -24,8 +24,14 @@ VITE_UPLOAD_SERVICE_URL=http://localhost:8082
 VITE_TRANSACTION_SERVICE_URL=http://localhost:8005
 
 # Midtrans Configuration
+# ⚠️ SECURITY: Client Key is safe to expose in frontend (public)
 VITE_MIDTRANS_CLIENT_KEY=your_midtrans_client_key_here
-VITE_MIDTRANS_SERVER_KEY=your_midtrans_server_key_here
+
+# ⚠️ CRITICAL: Server Key should NEVER be in frontend .env file!
+# Server Key must ONLY be used in backend/server-side code
+# It has full API access and can manipulate transactions
+# VITE_MIDTRANS_SERVER_KEY=DO_NOT_PUT_HERE
+
 VITE_MIDTRANS_IS_PRODUCTION=false
 
 # App Configuration
@@ -187,10 +193,40 @@ The integration includes comprehensive error handling:
 
 ## Security Considerations
 
-1. **Client Key**: Safe to expose in frontend (public)
-2. **Server Key**: Never expose in frontend (backend only)
-3. **Transaction Data**: Stored temporarily in localStorage
-4. **Redirect URLs**: Validated before redirecting
+### ⚠️ CRITICAL SECURITY INFORMATION
+
+1. **Client Key**: 
+   - ✅ **SAFE to expose in frontend** (public)
+   - Designed to be used in client-side code
+   - Can be included in `.env` file with `VITE_` prefix
+   - Limited permissions - can only initiate payments
+
+2. **Server Key**: 
+   - ❌ **NEVER expose in frontend** (backend only)
+   - **MUST NOT** be in `.env` file with `VITE_` prefix
+   - Has full API access - can manipulate transactions, refunds, etc.
+   - Should only be used in backend/server-side code
+   - If exposed, attackers can:
+     - Cancel transactions
+     - Refund payments
+     - Access transaction data
+     - Manipulate payment status
+
+3. **Transaction Data**: 
+   - Stored temporarily in localStorage
+   - Cleared after successful processing
+
+4. **Redirect URLs**: 
+   - Validated before redirecting
+   - Use HTTPS in production
+
+### Best Practices
+
+- ✅ Use Client Key in frontend for payment initiation
+- ✅ Keep Server Key only in backend environment variables
+- ✅ Never commit Server Key to version control
+- ✅ Use environment-specific keys (sandbox vs production)
+- ✅ Rotate keys if accidentally exposed
 
 ## Testing
 

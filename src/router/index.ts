@@ -21,6 +21,7 @@ const CreatorReviewsPage = () => import('../pages/CreatorReviewsPage.vue');
 const CreatorWalletPage = () => import('../pages/CreatorWalletPage.vue');
 const TransactionsPage = () => import('../pages/TransactionsPage.vue');
 const TransactionDetailPage = () => import('../pages/TransactionDetailPage.vue');
+const TransactionSuccessPage = () => import('../pages/TransactionSuccessPage.vue');
 const PurchaseConfirmationPage = () => import('../pages/PurchaseConfirmationPage.vue');
 const VerifyUserPage = () => import('../pages/VerifyUserPage.vue');
 
@@ -144,6 +145,12 @@ const routes: RouteRecordRaw[] = [
     name: 'TransactionDetail',
     component: TransactionDetailPage,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/transaction/success',
+    name: 'TransactionSuccess',
+    component: TransactionSuccessPage,
+    meta: { requiresAuth: false }
   },
   {
     path: '/purchase/confirm',

@@ -1,10 +1,12 @@
 // Midtrans Configuration
 export const midtransConfig = {
-  // Client Key for frontend (public)
+  // Client Key for frontend (public - safe to expose)
+  // ⚠️ IMPORTANT: Client Key is designed to be public and can be exposed in frontend
   clientKey: import.meta.env.VITE_MIDTRANS_CLIENT_KEY || 'your_midtrans_client_key_here',
   
-  // Server Key for backend (keep secret)
-  serverKey: import.meta.env.VITE_MIDTRANS_SERVER_KEY || 'your_midtrans_server_key_here',
+  // ⚠️ SECURITY NOTE: Server Key should NEVER be in frontend code!
+  // Server Key must only be used in backend/server-side code
+  // It has full access to Midtrans API and can be used to manipulate transactions
   
   // Environment (sandbox/production)
   isProduction: import.meta.env.VITE_MIDTRANS_IS_PRODUCTION === 'true' || false,
@@ -42,10 +44,8 @@ export const validateMidtransConfig = (): boolean => {
     return false;
   }
   
-  if (!midtransConfig.serverKey || midtransConfig.serverKey === 'your_midtrans_server_key_here') {
-    console.warn('⚠️ Midtrans Server Key not configured');
-    return false;
-  }
+  // Server Key validation removed - Server Key should NOT be in frontend
+  // Server Key must only be used in backend/server-side code
   
   return true;
 };
@@ -54,7 +54,7 @@ export const validateMidtransConfig = (): boolean => {
 if (import.meta.env.DEV) {
   console.log('🔧 Midtrans Configuration:', {
     clientKey: midtransConfig.clientKey ? '✅ Set' : '❌ Not set',
-    serverKey: midtransConfig.serverKey ? '✅ Set' : '❌ Not set',
+    // Server Key removed - should only be in backend
     isProduction: midtransConfig.isProduction,
     endpoints: getMidtransEndpoints(),
   });

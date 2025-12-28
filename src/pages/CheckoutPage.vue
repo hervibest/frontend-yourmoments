@@ -488,7 +488,7 @@ const processPayment = async () => {
           amount: item.discount.value,
           min_quantity: item.discount.min_quantity,
           value: item.discount.value,
-          type: item.discount.discount_type
+          discount_type: item.discount.discount_type
         } : undefined,
         final_price: item.final_price
       })),

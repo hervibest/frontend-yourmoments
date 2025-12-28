@@ -204,7 +204,7 @@ export interface PhotoDiscount {
   value: number;
   is_active: boolean;
   amount?: number;
-  type?: 'PERCENT' | 'FIXED';
+  // type?: 'PERCENT' | 'FIXED';
 }
 
 export interface Photo {
@@ -386,7 +386,7 @@ export interface TransactionItem {
     amount: number;
     min_quantity: number;
     value: number;
-    type: 'PERCENT' | 'FIXED';
+    discount_type: 'PERCENT' | 'FIXED';
   };
 }
 
